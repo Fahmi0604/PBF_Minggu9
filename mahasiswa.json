@@ -1,0 +1,41 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "NIM": 1841720212,
+      "nama": "Fahmi",
+      "alamat": "Pasuruan",
+      "hp": "082118598937",
+      "angkatan": 2018,
+      "status": "aktif"
+    },
+    {
+      "id": 2,
+      "NIM": 1841720213,
+      "nama": "Firmansyah",
+      "alamat": "Malang",
+      "hp": "082118598937",
+      "angkatan": 2019,
+      "status": "lulus"
+    },
+    {
+      "id": 1614674882418,
+      "NIM": "1841720062",
+      "nama": "Nur Hanifa",
+      "alamat": "Kab.Malang",
+      "hp": "08932274628",
+      "angkatan": "2018",
+      "status": "Aktif"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
