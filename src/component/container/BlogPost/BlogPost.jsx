@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './BlogPost.css'
 import Post from '../../BlogPost/Post'
+import API from '../../../Services/index'
 
 class BlogPost extends Component {
 
@@ -18,25 +19,24 @@ class BlogPost extends Component {
     }
 
     ambilDataDariServerAPI = () => {
-        fetch('http://localhost:3001/posts?_sort=id&_order=desc') // alamat URL API yang ingin kita ambil datanya
-            .then(response => response.json())      // ubah response data dari url API menjadi sebuah data json
-            .then(jsonHasilAmbilDariAPI => {        // data json hasil ambil dari API kita masukan ke dalam listArtkel pada state
-                this.setState({
-                    listMhs: jsonHasilAmbilDariAPI
-                })
+        API.getMahasiswa().then(result => {
+            this.setState({
+              listMhs: result
             })
-    }
+        })
+    };
 
     componentDidMount() {   //komponen untuk mengecek ketika komponen telah di-mount-ing, maka panggil API
         this.ambilDataDariServerAPI();
     }
 
     handleHapus = (data) => {
-        fetch(`http://localhost:3001/posts/${data}`, { method: 'DELETE' })
-            .then(res => {
-                this.ambilDataDariServerAPI()
+        API.deleteMahasiswa(data)
+            .then((response) => {
+                this.ambilDataDariServerAPI();
             })
     }
+    
 
     handleTambah = (event) => {
         let formInsertMhs = { ...this.state.insertMhs };
@@ -49,28 +49,19 @@ class BlogPost extends Component {
     }
 
     handleTombolSimpan = () => {
-        fetch('http://localhost:3001/posts', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.state.insertMhs)
-        })
-            .then((Response) => {
+        API.postMahasiswa(this.state.insertMhs)
+            .then((response) => {
                 this.ambilDataDariServerAPI();
             });
-    }
+    };
 
     render() {
         return (
-
             <div className="post-artikel">
-
                 <div className="row">
                     <div className="col-sm">
                         <div className="TopBar">
-                            <div className="form pb-2 border-bottom">
+                            <div className="form pb-2">
                                 <h1>INPUT MAHASISWA BARU</h1>
                                 <div className="form-group row">
                                     <label htmlFor="NIM" className="col-sm-2 col-form-label">NIM</label>
@@ -122,12 +113,6 @@ class BlogPost extends Component {
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
             </div>
         )
     }
